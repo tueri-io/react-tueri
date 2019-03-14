@@ -1,0 +1,25 @@
+{
+  "name": "@tueri/react-tueri",
+  "version": "1.0.0",
+  "description": "Tueri integration for ReactJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tueriapp/react-tueri.git"
+  },
+  "author": "Dane Stevens <dane.stevens@tueri.io> (https://tueri.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tueriapp/react-tueri/issues"
+  },
+  "homepage": "https://github.com/tueriapp/react-tueri#readme",
+  "keywords": [
+    "image optimization",
+    "image transformation",
+    "react image optimization",
+    "react image transformation"
+  ]
+}
