@@ -3,6 +3,7 @@
 /build
 /coverage
 .env*
+index.js
 
 npm-debug.log*
 yarn-debug.log*
