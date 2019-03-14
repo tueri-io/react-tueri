@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node src/index.js",
-    "build": "babel src --out-dir lib"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --hot",
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
@@ -24,11 +24,25 @@
     "react image optimization",
     "react image transformation"
   ],
+  "peerDependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "prop-types": "^15.6.0"
+  },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
-    "nodemon": "^1.18.10"
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.10",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
   }
 }
