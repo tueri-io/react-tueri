@@ -19,6 +19,8 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
 
         this.handleViewport = this.handleViewport.bind(this)
 
+        this.windowHeight = window.innerHeight
+
     }
 
     componentDidMount() {
@@ -39,7 +41,7 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
 
     handleViewport() {
         if (this.imgRef.current && !this.state.thumbnailLoaded) {
-            const windowHeight = window.innerHeight
+            const windowHeight = this.windowHeight
             const imageTopPosition = this.imgRef.current.getBoundingClientRect().top
             if (windowHeight * 1.5 > imageTopPosition) {
                 this.setState({
