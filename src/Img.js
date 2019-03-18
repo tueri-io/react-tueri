@@ -8,6 +8,7 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
     constructor(props) {
         super(props)
         this.state = {
+            windowHeight: 0,
             isInViewport: false,
             width: 0,
             height: 0,
@@ -16,10 +17,7 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
         }
 
         this.imgRef = React.createRef()
-
         this.handleViewport = this.handleViewport.bind(this)
-
-        this.windowHeight = window.innerHeight
 
     }
 
@@ -27,11 +25,14 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
 
         const width = this.imgRef.current.clientWidth
 
+        const windowHeight = window.innerHeight
+
         this.setState({
-            width
-        })
+            width,
+            windowHeight
+        }, )
         
-        this.handleViewport()
+        this.handleViewport(windowHeight)
 
         window.addEventListener('scroll', this.handleViewport)
 
@@ -39,9 +40,9 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
 
     // const [currentYOffset, setCurrentYOffset] = useState(0)
 
-    handleViewport() {
+    handleViewport(windowHeight) {
         if (this.imgRef.current && !this.state.thumbnailLoaded) {
-            const windowHeight = this.windowHeight
+            const windowHeight = windowHeight || this.state.windowHeight
             const imageTopPosition = this.imgRef.current.getBoundingClientRect().top
             if (windowHeight * 1.5 > imageTopPosition) {
                 this.setState({
