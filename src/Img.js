@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { TueriContext } from './Provider'
 import kebabCase from 'lodash.kebabcase'
@@ -68,15 +68,56 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
             return queryString +=  `${i < 1 ? '?' : '&'}${option}=${options[option]}`
         })
 
+        const styles = {
+            figure: {
+                position: 'relative',
+                margin: 0
+            },
+            thumbnail: {
+                width: '100%',
+                filter: 'blur(5px)',
+                opacity: 1,
+                transition: 'all 0.5s ease-in'
+            },
+            fullsize: {
+                position: 'absolute',
+                top: '0px',
+                left: '0px',
+                transition: 'all 0.5s ease-in'
+            }
+        }
+
+        // if (thumbnailLoaded && !fullsizeLoaded) {
+        //     styles.thumbnail.opacity = 1
+        // }
+        if (fullsizeLoaded) {
+            styles.thumbnail.opacity = 0
+        }
+
         return(
             <TueriContext.Consumer>
                 {({ domain, account }) => (
-                    <figure className={`tueri__imageContainer ${ thumbnailLoaded || fullsizeLoaded ? 'tueri__imageContainer--loaded': '' }`} ref={this.imgRef}>
+                    <figure
+                        style={ styles.figure }
+                        ref={this.imgRef}
+                    >
                         {
                             isInViewport && width > 0 ? (
                                 <React.Fragment>
-                                    <img onLoad={ () => { this.setState({ thumbnailLoaded: true }) } } className={`tueri__image--thumbnail ${ thumbnailLoaded && !fullsizeLoaded ? 'loaded' : ''} ${ fullsizeLoaded ? 'fadeOut' : ''}`} src={`${ domain }/${ src }/${ kebabCase(alt) }.${ format }${ queryString.replace(`scale.width=${ width }`, `scale.width=${ Math.round(width * 0.1) }`) }`} alt={ alt } />
-                                    <img onLoad={ () => { this.setState({ fullsizeLoaded: true }) } } className={`tueri__image--fullsize ${ fullsizeLoaded ? 'loaded' : ''}`} src={`${ domain }/${ src }/${ kebabCase(alt) }.${ format }${ queryString }`} alt={ alt } />
+                                    <img 
+                                        onLoad={ () => { this.setState({ fullsizeLoaded: true }) } } 
+                                        // className={`tueri__image--fullsize ${ fullsizeLoaded ? 'loaded' : ''}`} 
+                                        style={ styles.fullsize }
+                                        src={`${ domain }/${ src }/${ kebabCase(alt) }.${ format }${ queryString }`}
+                                        alt={ alt }
+                                    />
+                                    <img 
+                                        onLoad={ () => { this.setState({ thumbnailLoaded: true }) } }
+                                        // className={`tueri__image--thumbnail ${ thumbnailLoaded && !fullsizeLoaded ? 'loaded' : ''} ${ fullsizeLoaded ? 'fadeOut' : ''}`} 
+                                        style={ styles.thumbnail }
+                                        src={`${ domain }/${ src }/${ kebabCase(alt) }.${ format }${ queryString.replace(`scale.width=${ width }`, `scale.width=${ Math.round(width * 0.1) }`) }`} 
+                                        alt={ alt } 
+                                    />
                                 </React.Fragment>
                             ) : null
                         }            
