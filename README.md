@@ -14,7 +14,7 @@ React integration for [Tueri](https://tueri.io) image processing service.
 
 ## Usage
 
-1. Add the `<TueriProvder/> component to the root of your React component tree. This component [provides](https://reactjs.org/docs/context.html) child components api and base url information.
+1. Add the `<TueriProvider/>` component to the root of your React component tree. This component [provides](https://reactjs.org/docs/context.html) child components api and base url information.
 
 ```
 import TueriProvider from '@tueri/react-tueri'
