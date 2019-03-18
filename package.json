@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot",
-    "build": "cross-env NODE_ENV=production webpack"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -19,10 +19,12 @@
   },
   "homepage": "https://github.com/tueriapp/react-tueri#readme",
   "keywords": [
+    "image processing",
     "image optimization",
     "image transformation",
     "react image optimization",
-    "react image transformation"
+    "react image transformation",
+    "react image processing"
   ],
   "peerDependencies": {
     "react": "^16.8.4",
@@ -37,12 +39,17 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
     "cross-env": "^5.2.0",
+    "css-loader": "^2.1.1",
     "nodemon": "^1.18.10",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "lodash.kebabcase": "^4.1.1"
   }
 }

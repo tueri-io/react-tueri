@@ -1,24 +1,8 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import { TueriProvider } from './Provider'
+import Img from './Img'
+import './tueri.css'
 
-function Img ({ src, alt }) {
-
-    const [width, setWidth] = useState(0)
-
-    useEffect(() => {
-        console.log(imgRef)
-    })
-
-    const imgRef = React.createRef()
-
-    return(
-        <img ref={imgRef} src={src} alt={ alt } />
-    )
+export default TueriProvider
+export {
+    Img
 }
-
-Img.propTypes = {
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired
-}
-
-export default Img
