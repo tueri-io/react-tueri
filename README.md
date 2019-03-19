@@ -5,7 +5,7 @@ React integration for [Tueri](https://tueri.io) image processing service.
 * Automatic image optimization (compression, resizing and image format)
 * Responsive images
 * Lazy Loading
-* Low quality image placeholders (LQIP)
+* Low-quality image placeholders (LQIP)
 
 ## Installation
 
@@ -42,7 +42,7 @@ The `<Img />` component automatically handles image optimization, responsive ima
 * `alt`: String **(REQUIRED)**
 
 * `options`: Object (optional)
-  * Default: `{ 'scale.width': autoCalculatedWidth }`
+  * Default: `{ w: autoCalculatedWidth }`
   * Possible values: see documentation for complete option list
 
 * `format`: String (optional)
