@@ -79,8 +79,6 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
             options['fm'] = 'webp'
         }
 
-        console.log(this.isWebpSupported())
-
         // Loop through option prop and build queryString
         Object.keys(options).map((option, i) => {
             return queryString +=  `${i < 1 ? '?' : '&'}${option}=${options[option]}`
