@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { TueriContext } from './Provider'
 import kebabCase from 'lodash.kebabcase'
 
-class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' }) {
+class Img extends React.Component {
 
     constructor(props) {
         super(props)
@@ -35,8 +35,6 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
         this.window.addEventListener('scroll', this.handleViewport)
 
     }
-
-    // const [currentYOffset, setCurrentYOffset] = useState(0)
 
     handleViewport() {
         if (this.imgRef.current && !this.state.lqipLoaded) {
