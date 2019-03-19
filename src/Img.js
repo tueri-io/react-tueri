@@ -76,8 +76,10 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
 
         // If a format has not been specified, detect webp support
         if (!options['fm'] && this.isWebpSupported) {
-            options['fm'] += 'webp'
+            options['fm'] = 'webp'
         }
+
+        console.log(this.isWebpSupported())
 
         // Loop through option prop and build queryString
         Object.keys(options).map((option, i) => {
@@ -108,6 +110,8 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
             styles.lqip.opacity = 0
         }
 
+        const missingALt = 'ALT TEXT IS REQUIRED'
+
         return(
             // Return the CDN domain from the TueriProvider
             <TueriContext.Consumer>
@@ -124,16 +128,16 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
                                     <img 
                                         onLoad={ () => { this.setState({ fullsizeLoaded: true }) } }
                                         style={ styles.fullsize }
-                                        src={`${ domain }/${ src }/${ kebabCase(alt) }.${ format }${ queryString }`}
-                                        alt={ alt }
+                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ format }${ queryString }`}
+                                        alt={ alt || missingALt }
                                     />
 
                                     {/* Load LQIP in foreground */}
                                     <img 
                                         onLoad={ () => { this.setState({ lqipLoaded: true }) } }
                                         style={ styles.lqip }
-                                        src={`${ domain }/${ src }/${ kebabCase(alt) }.${ format }${ queryString.replace(`scale.width=${ width }`, `scale.width=${ Math.round(width * 0.1) }`) }`} 
-                                        alt={ alt } 
+                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ format }${ queryString.replace(`scale.width=${ width }`, `scale.width=${ Math.round(width * 0.1) }`) }`} 
+                                        alt={ alt || missingALt } 
                                     />
                                 </React.Fragment>
                             ) : null
