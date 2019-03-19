@@ -136,7 +136,7 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
                                     <img 
                                         onLoad={ () => { this.setState({ lqipLoaded: true }) } }
                                         style={ styles.lqip }
-                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ format }${ queryString.replace(`scale.width=${ width }`, `scale.width=${ Math.round(width * 0.1) }`) }`} 
+                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ format }${ queryString.replace(`w=${ width }`, `scale.width=${ Math.round(width * 0.1) }`) }`} 
                                         alt={ alt || missingALt } 
                                     />
                                 </React.Fragment>
