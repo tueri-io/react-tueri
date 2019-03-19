@@ -141,8 +141,6 @@ class Img extends React.Component {
 
         const missingALt = 'ALT TEXT IS REQUIRED'
 
-        console.log(isInViewport)
-
         return(
             // Return the CDN domain from the TueriProvider
             <TueriContext.Consumer>
