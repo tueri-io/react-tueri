@@ -40,7 +40,8 @@ class Img extends React.Component {
         if (this.imgRef.current && !this.state.lqipLoaded) {
             const windowHeight = this.window.innerHeight
             const imageTopPosition = this.imgRef.current.getBoundingClientRect().top
-            if (windowHeight * 1.5 > imageTopPosition) {
+            const buffer = typeof this.props.buffer === 'number' && this.props.buffer > 1 && this.props.buffer < 10 ? this.props.buffer : 1.5
+            if (windowHeight * buffer > imageTopPosition) {
                 this.setState({
                     isInViewport: true
                 })
@@ -63,7 +64,7 @@ class Img extends React.Component {
     render() {
 
         // Destructure props and state
-        const { src, alt, options = {}, format = 'jpg' } = this.props
+        const { src, alt, options = {}, ext = 'jpg' } = this.props
         const { isInViewport, width, fullsizeLoaded } = this.state
 
         // Create an empty query string
@@ -117,6 +118,7 @@ class Img extends React.Component {
                         ref={this.imgRef}
                     >
                         {
+                            // 
                             isInViewport && width > 0 ? (
                                 <React.Fragment>
 
@@ -124,7 +126,7 @@ class Img extends React.Component {
                                     <img 
                                         onLoad={ () => { this.setState({ fullsizeLoaded: true }) } }
                                         style={ styles.fullsize }
-                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ format }${ queryString }`}
+                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ queryString }`}
                                         alt={ alt || missingALt }
                                     />
 
@@ -132,7 +134,7 @@ class Img extends React.Component {
                                     <img 
                                         onLoad={ () => { this.setState({ lqipLoaded: true }) } }
                                         style={ styles.lqip }
-                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ format }${ queryString.replace(`w=${ width }`, `scale.width=${ Math.round(width * 0.1) }`) }`} 
+                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ queryString.replace(`w=${ width }`, `scale.width=${ Math.round(width * 0.1) }`) }`} 
                                         alt={ alt || missingALt } 
                                     />
                                 </React.Fragment>
@@ -151,7 +153,8 @@ Img.propTypes = {
     src: PropTypes.string.isRequired,
     alt: PropTypes.string.isRequired,
     options: PropTypes.object,
-    format: PropTypes.string
+    ext: PropTypes.string,
+    buffer: PropTypes.number
 }
 
 export default Img
