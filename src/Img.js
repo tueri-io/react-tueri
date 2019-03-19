@@ -83,6 +83,9 @@ class Img extends React.Component {
             return queryString +=  `${i < 1 ? '?' : '&'}${option}=${options[option]}`
         })
 
+        // Modify the queryString for the LQIP image: replace the width param with a value 1/10 the fullsize
+        const lqipQueryString = queryString.replace(`w=${ width }`, `w=${ Math.round(width * 0.1) }`)
+
         const styles = {
             figure: {
                 position: 'relative',
@@ -134,7 +137,7 @@ class Img extends React.Component {
                                     <img 
                                         onLoad={ () => { this.setState({ lqipLoaded: true }) } }
                                         style={ styles.lqip }
-                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ queryString.replace(`w=${ width }`, `scale.width=${ Math.round(width * 0.1) }`) }`} 
+                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ lqipQueryString }`} 
                                         alt={ alt || missingALt } 
                                     />
                                 </React.Fragment>
