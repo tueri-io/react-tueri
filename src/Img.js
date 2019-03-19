@@ -17,37 +17,11 @@ class Img extends React.Component {
 
         this.imgRef = React.createRef()
         this.window = typeof window !== 'undefined' && window 
-        this.handleViewport = this.handleViewport.bind(this)       
+        this.handleScroll = this.handleScroll.bind(this)
+        this.handleResize = this.handleResize.bind(this)
         this.isWebpSupported = this.isWebpSupported.bind(this)
+        this.isInViewport = this.isInViewport.bind(this)
 
-    }
-
-    componentDidMount() {
-
-        const width = this.imgRef.current.clientWidth
-
-        this.setState({
-            width
-        })
-        
-        this.handleViewport()
-
-        this.window.addEventListener('scroll', this.handleViewport)
-
-    }
-
-    handleViewport() {
-        if (this.imgRef.current && !this.state.lqipLoaded) {
-            const windowHeight = this.window.innerHeight
-            const imageTopPosition = this.imgRef.current.getBoundingClientRect().top
-            const buffer = typeof this.props.buffer === 'number' && this.props.buffer > 1 && this.props.buffer < 10 ? this.props.buffer : 1.5
-            if (windowHeight * buffer > imageTopPosition) {
-                this.setState({
-                    isInViewport: true
-                })
-            }
-
-        }
     }
 
     isWebpSupported() {
@@ -57,8 +31,62 @@ class Img extends React.Component {
         return true;
     }
 
+    isInViewport() {
+        const windowHeight = this.window.innerHeight
+        const imageTopPosition = this.imgRef.current.getBoundingClientRect().top
+        const buffer = typeof this.props.buffer === 'number' && this.props.buffer > 1 && this.props.buffer < 10 ? this.props.buffer : 1.5
+        if (windowHeight * buffer > imageTopPosition) {
+            return true
+        }
+        return false
+    }
+
+    handleScroll() {
+        if (this.imgRef.current && !this.state.lqipLoaded) {
+            this.setState({
+                isInViewport: this.isInViewport()
+            })
+        }
+    }
+
+    handleResize() {
+
+        if (this.imgRef.current) {
+            const width = this.imgRef.current.clientWidth
+            const currentWidth = this.state.width
+            const difference = Math.abs(width - currentWidth)
+            const differencePercentage = difference / currentWidth * 100
+            const isInViewport = this.isInViewport()
+            if (differencePercentage >= 10) {
+                this.setState({
+                    width,
+                    lqipLoaded: false,
+                    fullsizeLoaded: isInViewport,
+                    isInViewport
+                })
+            }
+
+        }
+
+    } 
+
+    componentDidMount() {
+
+        const width = this.imgRef.current.clientWidth
+
+        this.setState({
+            width,
+            isInViewport: this.isInViewport()
+        })
+
+        this.window.addEventListener('scroll', this.handleScroll)
+        this.window.addEventListener('resize', this.handleResize)
+
+    }  
+
     componentWillUnmount() {
-        this.window.removeEventListener('scroll', this.handleViewport)
+        this.window.removeEventListener('scroll', this.handleScroll)
+        this.window.removeEventListener('resize', this.handleResize)
     }
 
     render() {
@@ -101,6 +129,7 @@ class Img extends React.Component {
                 position: 'absolute',
                 top: '0px',
                 left: '0px',
+                width: '100%',
                 transition: 'all 0.5s ease-in'
             }
         }
@@ -111,6 +140,8 @@ class Img extends React.Component {
         }
 
         const missingALt = 'ALT TEXT IS REQUIRED'
+
+        console.log(isInViewport)
 
         return(
             // Return the CDN domain from the TueriProvider
