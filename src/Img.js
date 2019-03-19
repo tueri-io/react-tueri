@@ -28,7 +28,7 @@ class Img extends React.Component{ // ({ src, alt, options = {}, format = 'jpg' 
 
         this.setState({
             width
-        }, )
+        })
         
         this.handleViewport()
 
