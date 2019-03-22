@@ -18,7 +18,7 @@ class TueriProvider extends React.Component {
 
     }
 
-    async supportsWebp() {
+    supportsWebp() {
         if (!self.createImageBitmap) return false
 
         const webpData = 'data:image/webp;base64,UklGRh4AAABXRUJQVlA4TBEAAAAvAAAAAAfQ//73v/+BiOh/AAA=';
