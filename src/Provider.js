@@ -31,9 +31,14 @@ class TueriProvider extends React.Component {
     
     componentDidMount() {
 
-        this.supportsWebp()
-        .then((webp) => this.setState({ supports: { ...this.state.supports, webp }, isLoaded: true }))
-
+        this.setState({
+            supports: {
+                ...this.state.supports,
+                webp: this.supportsWebp()
+            },
+            isLoaded: true
+        })
+        
     }
 
     render() {
@@ -41,7 +46,7 @@ class TueriProvider extends React.Component {
         const { isLoaded, supports } = this.state
         const { domain = 'https://cdn.tueri.io', accountId, children } = this.props
 
-        if (!isLoaded) return null
+        // if (!isLoaded) return null
 
         return(
             <TueriContext.Provider

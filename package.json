@@ -50,6 +50,7 @@
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
+    "fs-extra": "^7.0.1",
     "lodash.kebabcase": "^4.1.1"
   }
 }
