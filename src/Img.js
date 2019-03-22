@@ -19,16 +19,8 @@ class Img extends React.Component {
         this.window = typeof window !== 'undefined' && window 
         this.handleScroll = this.handleScroll.bind(this)
         this.handleResize = this.handleResize.bind(this)
-        this.isWebpSupported = this.isWebpSupported.bind(this)
         this.isInViewport = this.isInViewport.bind(this)
 
-    }
-
-    isWebpSupported() {
-        if (!this.window.createImageBitmap) {
-            return false;
-        }
-        return true;
     }
 
     isInViewport() {
@@ -92,7 +84,7 @@ class Img extends React.Component {
     render() {
 
         // Destructure props and state
-        const { src, alt, options = {}, ext = 'jpg' } = this.props
+        const { src, alt, options = {}, ext = 'jpg', domain, supports } = this.props
         const { isInViewport, width, fullsizeLoaded } = this.state
 
         // Create an empty query string
@@ -102,7 +94,7 @@ class Img extends React.Component {
         options['w'] = options['w'] || width
 
         // If a format has not been specified, detect webp support
-        if (!options['fm'] && this.isWebpSupported) {
+        if (!options['fm'] && supports.webp) {
             options['fm'] = 'webp'
         }
 
@@ -142,40 +134,33 @@ class Img extends React.Component {
         const missingALt = 'ALT TEXT IS REQUIRED'
 
         return(
-            // Return the CDN domain from the TueriProvider
-            <TueriContext.Consumer>
-                {({ domain }) => (
-                    <figure
-                        style={ styles.figure }
-                        ref={this.imgRef}
-                    >
-                        {
-                            // 
-                            isInViewport && width > 0 ? (
-                                <React.Fragment>
+            <figure
+                style={ styles.figure }
+                ref={this.imgRef}
+            >
+                {
+                    isInViewport && width > 0 ? (
+                        <React.Fragment>
 
-                                    {/* Load fullsize image in background */}
-                                    <img 
-                                        onLoad={ () => { this.setState({ fullsizeLoaded: true }) } }
-                                        style={ styles.fullsize }
-                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ queryString }`}
-                                        alt={ alt || missingALt }
-                                    />
+                            {/* Load fullsize image in background */}
+                            <img 
+                                onLoad={ () => { this.setState({ fullsizeLoaded: true }) } }
+                                style={ styles.fullsize }
+                                src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ queryString }`}
+                                alt={ alt || missingALt }
+                            />
 
-                                    {/* Load LQIP in foreground */}
-                                    <img 
-                                        onLoad={ () => { this.setState({ lqipLoaded: true }) } }
-                                        style={ styles.lqip }
-                                        src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ lqipQueryString }`} 
-                                        alt={ alt || missingALt } 
-                                    />
-                                </React.Fragment>
-                            ) : null
-                        }            
-                    </figure>
-                )}
-                
-            </TueriContext.Consumer>
+                            {/* Load LQIP in foreground */}
+                            <img 
+                                onLoad={ () => { this.setState({ lqipLoaded: true }) } }
+                                style={ styles.lqip }
+                                src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ lqipQueryString }`} 
+                                alt={ alt || missingALt } 
+                            />
+                        </React.Fragment>
+                    ) : null
+                }            
+            </figure>
         )
 
     }
@@ -189,4 +174,10 @@ Img.propTypes = {
     buffer: PropTypes.number
 }
 
-export default Img
+export default (props) => (
+    <TueriContext.Consumer>
+        {(context) => (
+            <Img {...props} {...context} />
+        )}
+    </TueriContext.Consumer>
+)
