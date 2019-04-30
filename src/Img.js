@@ -87,6 +87,10 @@ class Img extends React.Component {
         const { src, alt, options = {}, ext = 'jpg', domain, supports } = this.props
         const { isInViewport, width, fullsizeLoaded } = this.state
 
+        const parsedUrl = src.split('/')
+        const imageId = parsedUrl.length > 1 ? parsedUrl[3] : src
+
+
         // Create an empty query string
         let queryString = ''        
 
@@ -146,7 +150,7 @@ class Img extends React.Component {
                             <img 
                                 onLoad={ () => { this.setState({ fullsizeLoaded: true }) } }
                                 style={ styles.fullsize }
-                                src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ queryString }`}
+                                src={`${ domain }/${ imageId }/${ kebabCase(alt || missingALt) }.${ ext }${ queryString }`}
                                 alt={ alt || missingALt }
                             />
 
@@ -154,7 +158,7 @@ class Img extends React.Component {
                             <img 
                                 onLoad={ () => { this.setState({ lqipLoaded: true }) } }
                                 style={ styles.lqip }
-                                src={`${ domain }/${ src }/${ kebabCase(alt || missingALt) }.${ ext }${ lqipQueryString }`} 
+                                src={`${ domain }/${ imageId }/${ kebabCase(alt || missingALt) }.${ ext }${ lqipQueryString }`} 
                                 alt={ alt || missingALt } 
                             />
                         </React.Fragment>
