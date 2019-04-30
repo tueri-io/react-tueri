@@ -1,5 +1,5 @@
 {
-  "name": "@tueri/react-tueri",
+  "name": "@tueri/react",
   "version": "1.1.16",
   "description": "Tueri integration for ReactJS",
   "main": "index.js",
