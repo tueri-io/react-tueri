@@ -93,7 +93,6 @@ class Img extends React.Component {
             `${ domain }/${ imageId }/${ kebabCase(alt || missingALt) }.${ ext }`
         )
 
-
         // Create an empty query string
         let queryString = ''        
 
