@@ -89,7 +89,7 @@ class Img extends React.Component {
 
         const parsedUrl = src.split('/')
         const imageId = parsedUrl.length > 1 ? parsedUrl[3] : src
-        const imageSrc = parsedUrl.length === 6 ? parsedUrl : (
+        const imageSrc = parsedUrl.length === 6 ? src : (
             `${ domain }/${ imageId }/${ kebabCase(alt || missingALt) }.${ ext }`
         )
 
