@@ -9,15 +9,15 @@ React integration for [Tueri](https://tueri.io) image processing service.
 
 ## Installation
 
-* NPM: `npm install @tueri/react-tueri`
-* YARN: `yarn add @tueri/react-tueri`
+* NPM: `npm install @tueri/react`
+* YARN: `yarn add @tueri/react`
 
 ## Usage
 
 1. Add the `<TueriProvider/>` component to the root of your React component tree. This component [provides](https://reactjs.org/docs/context.html) child components api and base url information.
 
 ```
-import TueriProvider from '@tueri/react-tueri'
+import TueriProvider from '@tueri/react'
 
 ReactDOM.render(
     <TueriProvider>
