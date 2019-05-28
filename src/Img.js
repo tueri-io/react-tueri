@@ -85,7 +85,7 @@ class Img extends React.Component {
 
         // Destructure props and state
         const { src, alt, options = {}, ext = 'jpg', domain, supports } = this.props
-        const { isInViewport, width, fullsizeLoaded } = this.state
+        const { isInViewport, width, height, fullsizeLoaded } = this.state
 
         const parsedUrl = src.split('/')
         const imageId = parsedUrl.length > 1 ? parsedUrl[3] : src
