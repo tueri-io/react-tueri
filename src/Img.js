@@ -85,7 +85,7 @@ class Img extends React.Component {
 
         // Destructure props and state
         const { src, alt, options = {}, ext = 'jpg', domain, supports } = this.props
-        const { isInViewport, width, height, fullsizeLoaded } = this.state
+        const { isInViewport, width, fullsizeLoaded } = this.state
 
         const parsedUrl = src.split('/')
         const imageId = parsedUrl.length > 1 ? parsedUrl[3] : src
@@ -111,8 +111,10 @@ class Img extends React.Component {
 
         // Modify the queryString for the LQIP image: replace the width param with a value 1/10 the fullsize
         let lqipQueryString = queryString.replace(`w=${ width }`, `w=${ Math.round(width * 0.1) }`)
-        if (height) {
-            lqipQueryString.replace(`h=${ height }`, `w=${ Math.round(height * 0.1) }`)
+        
+        const queryHasHeight = new RegExp("h=")
+        if (queryHasHeight.test(lqipQueryString)) {
+            lqipQueryString.replace(`h=${ height }`, `h=${ Math.round(height * 0.1) }`)
         }
 
         const styles = {
