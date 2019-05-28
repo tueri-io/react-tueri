@@ -113,7 +113,7 @@ class Img extends React.Component {
         let lqipQueryString = queryString.replace(`w=${ width }`, `w=${ Math.round(width * 0.1) }`)
         
         if (options['h']) {
-            lqipQueryString.replace(`h=${ options['h'] }`, `h=${ Math.round(options['h'] * 0.1) }`)
+            lqipQueryString = lqipQueryString.replace(`h=${ options['h'] }`, `h=${ Math.round(options['h'] * 0.1) }`)
         }
 
         const styles = {
