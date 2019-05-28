@@ -112,9 +112,8 @@ class Img extends React.Component {
         // Modify the queryString for the LQIP image: replace the width param with a value 1/10 the fullsize
         let lqipQueryString = queryString.replace(`w=${ width }`, `w=${ Math.round(width * 0.1) }`)
         
-        const queryHasHeight = new RegExp("h=")
-        if (queryHasHeight.test(lqipQueryString)) {
-            lqipQueryString.replace(`h=${ height }`, `h=${ Math.round(height * 0.1) }`)
+        if (options['h']) {
+            lqipQueryString.replace(`h=${ options['h'] }`, `h=${ Math.round(options['h'] * 0.1) }`)
         }
 
         const styles = {
