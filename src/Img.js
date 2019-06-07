@@ -125,14 +125,16 @@ class Img extends React.Component {
                 width: '100%',
                 filter: 'blur(5px)',
                 opacity: 1,
-                transition: 'all 0.5s ease-in'
-            },
-            fullsize: {
+                transition: 'all 0.5s ease-in',
+                display: 'block',
                 position: 'absolute',
                 top: '0px',
                 left: '0px',
+            },
+            fullsize: {
                 width: '100%',
-                transition: 'all 0.5s ease-in'
+                transition: 'all 0.5s ease-in',
+                display: 'block'
             }
         }
 
