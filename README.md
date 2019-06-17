@@ -1,6 +1,8 @@
 # Tueri.io - ReactJS Integration
 React integration for [Tueri](https://tueri.io) image processing service.
 
+[Documentation](https://tueri.io/docs/reactjs-integration)
+
 * Automatic image optimization (compression, resizing and image format)
 * Responsive images
 * Lazy Loading
